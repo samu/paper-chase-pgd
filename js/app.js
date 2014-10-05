@@ -127,15 +127,21 @@ var app = {
         requireModule("appkit/app");
     },
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+        // console.log("id: " + id);
+        // var parentElement = document.getElementById(id);
+        // var listeningElement = parentElement.querySelector('.listening');
+        // var receivedElement = parentElement.querySelector('.received');
+        //
+        // listeningElement.setAttribute('style', 'display:none;');
+        // receivedElement.setAttribute('style', 'display:block;');
+        //
+        // console.log('Received Event: ' + id);
     }
 };
 
 console.log("HERE");
+
+emitDeviceReady = function() {
+  var e = new CustomEvent("deviceready");
+  document.dispatchEvent(e);
+}
