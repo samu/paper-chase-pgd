@@ -52,7 +52,7 @@ var define, requireModule, require, requirejs;
   };
 })();
 
-;define("appkit/aam", 
+;define("appkit/aam",
   ["exports"],
   function(__exports__) {
     "use strict";
@@ -64,7 +64,7 @@ var define, requireModule, require, requirejs;
 
     __exports__.myOtherMethod = myOtherMethod;
   });
-;define("appkit/app", 
+;define("appkit/app",
   ["appkit/mod1","appkit/aam"],
   function(__dependency1__, __dependency2__) {
     "use strict";
@@ -80,19 +80,21 @@ var define, requireModule, require, requirejs;
 
     myOtherMethod();
   });
-;define("appkit/mod1", 
+;define("appkit/mod1",
   ["exports"],
   function(__exports__) {
     "use strict";
     var myMethod;
 
     myMethod = function() {
+      el = document.getElementById("97_status");
+      el.innerHTML = "yep it worked";
       return console.log("myMethod from mod1 called!");
     };
 
     __exports__.myMethod = myMethod;
   });
-;define("appkit/tests/test", 
+;define("appkit/tests/test",
   [],
   function() {
     "use strict";
@@ -102,7 +104,7 @@ var define, requireModule, require, requirejs;
       });
     });
   });
-;define("appkit/tests/testHelper", 
+;define("appkit/tests/testHelper",
   [],
   function() {
     "use strict";
@@ -110,3 +112,28 @@ var define, requireModule, require, requirejs;
 
     requireModule("appkit/tests/test");
   });
+
+var app = {
+    initialize: function() {
+        this.bindEvents();
+        logToDom("hello dom");
+    },
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function() {
+        logToDom("device is ready");
+        app.receivedEvent('deviceready');
+        requireModule("appkit/app");
+    },
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+    }
+};
