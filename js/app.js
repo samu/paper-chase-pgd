@@ -87,6 +87,7 @@ var define, requireModule, require, requirejs;
     var myMethod;
 
     myMethod = function() {
+      console.log("my method");
       el = document.getElementById("97_status");
       el.innerHTML = "yep it worked";
       return console.log("myMethod from mod1 called!");
@@ -116,13 +117,12 @@ var define, requireModule, require, requirejs;
 var app = {
     initialize: function() {
         this.bindEvents();
-        logToDom("hello dom");
+        console.log("initialize");
     },
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        logToDom("device is ready");
         app.receivedEvent('deviceready');
         requireModule("appkit/app");
     },
