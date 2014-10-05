@@ -88,7 +88,7 @@ var define, requireModule, require, requirejs;
 
     myMethod = function() {
       console.log("my method");
-      el = document.getElementById("97_status");
+      var el = document.getElementById("97_status");
       el.innerHTML = "yep it worked";
       return console.log("myMethod from mod1 called!");
     };
