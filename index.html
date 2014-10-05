@@ -13,8 +13,7 @@
   </head>
 
   <body>
-    <button onclick="app.vibrate( 1000 );">Vibrate</button></p>
-    <button name="button" class="fixedButton" onclick="toggleScroll();">Autoscroll</button>
+    <button name="button" class="fixedButton" onclick="requireModule('appkit/app');">Autoscroll</button>
 
     <table>
       <tbody>
@@ -28,12 +27,9 @@
     <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="loader.js"></script>
-    <script charset="utf-8">
-      requireModule("appkit/app");
-    </script>
-    <!-- <script type="text/javascript" src="js/index.js"></script> -->
+    <!-- <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
         app.initialize();
-    </script>
+    </script>-->
   </body>
 </html>
