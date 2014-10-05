@@ -137,3 +137,5 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+console.log("HERE");
