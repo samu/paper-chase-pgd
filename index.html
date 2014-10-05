@@ -1,0 +1,34 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Jumbotron</title>
+    <style>
+      .fixedButton {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button onclick="app.vibrate( 1000 );">Vibrate</button></p>
+    <button name="button" class="fixedButton" onclick="toggleScroll();">Autoscroll</button>
+
+    <table>
+      <tbody>
+        <tr><td>major 97</td> <td> <label id="97_status"></label> </td></tr>
+        <tr><td>major 89</td> <td> <label id="89_status"></label> </td></tr>
+        <tr><td>major 2944</td> <td> <label id="2944_status"></label> </td></tr>
+        <tr><td>major 22691</td> <td> <label id="22691_status"></label> </td></tr>
+      </tbody>
+    </table>
+
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+  </body>
+</html>
