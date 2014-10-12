@@ -30,4 +30,6 @@ var app = {
     }
 };
 
+console.log("initializing!");
+
 app.initialize();
