@@ -18,16 +18,12 @@ knownBeacons = [{
   identifier: 'ID_2_2',
   major: 2944,
   minor: 41306
+} , {
+  uuid: 'f7826da6-4fa2-4e98-8024-bc5b71e0893e',
+  identifier: 'ID_3',
+  major: 1628,
+  minor: 1339
 }]
-
-window.doScroll = false;
-
-toggleScroll = function() {
-  window.doScroll = !window.doScroll;
-}
-
-logToDom = function (message) {
-};
 
 niceLog = function(res) {
   console.log("nice log start");
@@ -43,21 +39,18 @@ niceLog = function(res) {
 }
 
 initializeStuff = function() {
-  logToDom("before delegate");
-
   delegate = new cordova.plugins.locationManager.Delegate().implement({
       didDetermineStateForRegion: function (pluginResult) {
-        logToDom("yo1");
-        logToDom(JSON.stringify(pluginResult));
+        // logToDom(JSON.stringify(pluginResult));
+        console.log("1");
       },
 
       didStartMonitoringForRegion: function (pluginResult) {
-        logToDom("yo2");
-        logToDom(JSON.stringify(pluginResult));
+        // logToDom(JSON.stringify(pluginResult));
+        console.log("2");
       },
 
       didRangeBeaconsInRegion: function (pluginResult) {
-        logToDom("yo3");
         niceLog(pluginResult);
       }
   });
@@ -66,46 +59,21 @@ initializeStuff = function() {
 
   for(var i = 0; i < knownBeacons.length; i++) {
     var knownBeacon = knownBeacons[i];
-    logToDom("initializing beacon: " + JSON.stringify(knownBeacon))
+    // logToDom("initializing beacon: " + JSON.stringify(knownBeacon))
     var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(
       knownBeacon.identifier,
       knownBeacon.uuid,
       knownBeacon.major,
-      knownBeacon.minor);
+      knownBeacon.minor
+    );
     cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion)
-        .fail(console.error)
-        .done();
+                                   .fail(console.error)
+                                   .done();
 
     cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion)
-        .fail(console.error)
-        .done();
+                                   .fail(console.error)
+                                   .done();
   }
-  logToDom("the end");
 
   cordova.plugins.locationManager.requestWhenInUseAuthorization();
 }
-
-var app = {
-    initialize: function() {
-        this.bindEvents();
-        logToDom("hello dom");
-    },
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    onDeviceReady: function() {
-        logToDom("device is ready");
-        initializeStuff();
-        app.receivedEvent('deviceready');
-    },
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
-    }
-};
