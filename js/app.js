@@ -4,7 +4,7 @@
 }).call(this);
 
 (function() {
-  var f, knownBeacons;
+  var f, knownBeacons, update;
 
   knownBeacons = [
     {
@@ -35,6 +35,20 @@
     }
   ];
 
+  update = function(res) {
+    var beacon, beacons, el, id, _i, _len, _results;
+    beacons = res["beacons"];
+    _results = [];
+    for (_i = 0, _len = beacons.length; _i < _len; _i++) {
+      beacon = beacons[_i];
+      beacon = beacons[i];
+      id = beacon["major"];
+      el = document.getElementById(id + "_status");
+      _results.push(el.innerHTML = beacon["accuracy"] + ";" + beacon["rssi"] + ";" + beacon["proximity"]);
+    }
+    return _results;
+  };
+
   f = function($scope, VoilaLeService, IBeaconService, LogService) {
     var cb1, cb2, cb3, _i, _results;
     VoilaLeService.doStuff();
@@ -46,13 +60,14 @@
     }).apply(this);
     LogService.info("going to call ibeacon service from mainctrl");
     cb1 = function(e) {
-      return LogService.info(e);
+      return LogService.info("1");
     };
     cb2 = function(e) {
-      return LogService.info(e);
+      return LogService.info("2");
     };
     cb3 = function(e) {
-      return LogService.info("3: " + e);
+      LogService.info("3");
+      return update(e);
     };
     return IBeaconService.initialize(knownBeacons, cb1, cb2, cb3);
   };
