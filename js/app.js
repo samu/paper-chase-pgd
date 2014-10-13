@@ -52,7 +52,7 @@
       return LogService.info(e);
     };
     cb3 = function(e) {
-      return LogService.info(e);
+      return LogService.info("3: " + e);
     };
     return IBeaconService.initialize(knownBeacons, cb1, cb2, cb3);
   };
