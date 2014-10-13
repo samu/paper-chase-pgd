@@ -4,7 +4,7 @@
 }).call(this);
 
 (function() {
-  var f, knownBeacons, update;
+  var f, knownBeacons;
 
   knownBeacons = [
     {
@@ -35,22 +35,22 @@
     }
   ];
 
-  update = function(res) {
-    var beacon, beacons, el, id, _i, _len, _results;
-    beacons = res["beacons"];
-    _results = [];
-    for (_i = 0, _len = beacons.length; _i < _len; _i++) {
-      beacon = beacons[_i];
-      beacon = beacons[i];
-      id = beacon["major"];
-      el = document.getElementById(id + "_status");
-      _results.push(el.innerHTML = beacon["accuracy"] + ";" + beacon["rssi"] + ";" + beacon["proximity"]);
-    }
-    return _results;
-  };
-
   f = function($scope, VoilaLeService, IBeaconService, LogService) {
-    var cb1, cb2, cb3, _i, _results;
+    var cb1, cb2, cb3, update, _i, _results;
+    update = function(res) {
+      var beacon, beacons, el, id, _i, _len, _results;
+      LogService.info("updating!");
+      beacons = res["beacons"];
+      _results = [];
+      for (_i = 0, _len = beacons.length; _i < _len; _i++) {
+        beacon = beacons[_i];
+        id = beacon["major"];
+        LogService.info("major: " + id);
+        el = document.getElementById(id + "_status");
+        _results.push(el.innerHTML = beacon["accuracy"] + ";" + beacon["rssi"] + ";" + beacon["proximity"]);
+      }
+      return _results;
+    };
     VoilaLeService.doStuff();
     $scope.myAttr = "attr";
     $scope.numbers = (function() {
