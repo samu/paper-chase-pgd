@@ -1,6 +1,6 @@
 function logabit(text) {
   el = document.getElementById("info");
-  el.innerHTML += "<br>" + text;
+  el.innerHTML += text + "\n";
 }
 
 (function() {
