@@ -15,11 +15,11 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-      try {
-        initializeStuff();
-      } catch(err) {
-        logabit("something went wrong!: " + err);
-      }
+      // try {
+      //   initializeStuff();
+      // } catch(err) {
+      //   logabit("something went wrong!: " + err);
+      // }
       app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
@@ -34,7 +34,5 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-console.log("initializing!");
 
 app.initialize();
