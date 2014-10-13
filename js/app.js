@@ -118,7 +118,7 @@
     return {
       info: function(text) {
         var el;
-        el = $document.find("#info");
+        el = document.getElementById("info");
         return el.innerHTML = text + "\n" + el.innerHTML;
       }
     };
