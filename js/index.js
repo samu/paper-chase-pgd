@@ -42,15 +42,15 @@ initializeStuff = function() {
   delegate = new cordova.plugins.locationManager.Delegate().implement({
       didDetermineStateForRegion: function (pluginResult) {
         // logToDom(JSON.stringify(pluginResult));
-        console.log("1");
+        logabit("1");
       },
 
       didStartMonitoringForRegion: function (pluginResult) {
-        // logToDom(JSON.stringify(pluginResult));
-        console.log("2");
+        logabit("2");
       },
 
       didRangeBeaconsInRegion: function (pluginResult) {
+        logabit("going to do nice log");
         niceLog(pluginResult);
       }
   });
@@ -59,6 +59,7 @@ initializeStuff = function() {
 
   for(var i = 0; i < knownBeacons.length; i++) {
     var knownBeacon = knownBeacons[i];
+    logabit("adding ibeacon " + knownBeacon.identifier)
     // logToDom("initializing beacon: " + JSON.stringify(knownBeacon))
     var beaconRegion = new cordova.plugins.locationManager.BeaconRegion(
       knownBeacon.identifier,

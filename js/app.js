@@ -1,3 +1,8 @@
+function logabit(text) {
+  el = document.getElementById("info");
+  el.innerHTML += "<br>" + text;
+}
+
 (function() {
   window.PaperChase = angular.module("PaperChase", []);
 
