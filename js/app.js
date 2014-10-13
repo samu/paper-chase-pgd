@@ -1,61 +1,71 @@
-;define("appkit/aam",
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    var myOtherMethod;
+(function() {
+  window.PaperChase = angular.module("PaperChase", []);
 
-    myOtherMethod = function() {
-      return console.log("myOtherMethod from mod1 called!");
+}).call(this);
+
+(function() {
+  var f;
+
+  f = function($scope, VoilaLeService) {
+    var _i, _results;
+    VoilaLeService.doStuff();
+    $scope.myAttr = "attr";
+    return $scope.numbers = (function() {
+      _results = [];
+      for (_i = 1; _i <= 100; _i++){ _results.push(_i); }
+      return _results;
+    }).apply(this);
+  };
+
+  PaperChase.controller("MainCtrl", ["$scope", "VoilaLeService", f]);
+
+}).call(this);
+
+(function() {
+  var f;
+
+  f = function($window) {
+    console.log("initializing");
+    return {
+      doStuff: function() {
+        return console.log("doing stuff");
+      }
     };
+  };
 
-    __exports__.myOtherMethod = myOtherMethod;
-  });
-;define("appkit/app",
-  ["appkit/mod1","appkit/aam"],
-  function(__dependency1__, __dependency2__) {
-    "use strict";
-    console.log("going to require my modules");
+  PaperChase.service("VoilaLeService", ["$window", f]);
 
-    var myMethod = __dependency1__.myMethod;
+}).call(this);
 
-
-    var myOtherMethod = __dependency2__.myOtherMethod;
-
-
-    myMethod();
-
-    myOtherMethod();
-  });
-;define("appkit/mod1",
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    var myMethod;
-
-    myMethod = function() {
-      console.log("my method");
-      var el = document.getElementById("97_status");
-      el.innerHTML = "yep it worked";
-      return console.log("myMethod from mod1 called!");
-    };
-
-    __exports__.myMethod = myMethod;
-  });
-;define("appkit/tests/test",
-  [],
-  function() {
-    "use strict";
-    describe("Nothing", function() {
-      return it("doesen't do anything", function() {
-        return console.log("hi");
+(function() {
+  describe("Nothing", function() {
+    var $scope, ctrl;
+    $scope = null;
+    ctrl = null;
+    beforeEach(function() {
+      module("PaperChase");
+      return inject(function($rootScope, $controller) {
+        $scope = $rootScope.$new();
+        return ctrl = $controller("MainCtrl", {
+          $scope: $scope
+        });
       });
     });
+    it("doesen't do anything", function() {
+      return expect($scope.myAttr).toEqual("attr");
+    });
+    return it("does nothing", function() {
+      var match, regex, str;
+      expect(true).toEqual(true);
+      regex = /((services|controllers)\/(.*))\.coffee/;
+      str = "controllers/MainCtrl.coffee";
+      return match = regex.exec(str);
+    });
   });
-;define("appkit/tests/testHelper",
-  [],
-  function() {
-    "use strict";
-    requireModule("appkit/app");
 
-    requireModule("appkit/tests/test");
-  });
+}).call(this);
+
+(function() {
+
+
+}).call(this);
