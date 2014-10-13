@@ -85,23 +85,28 @@
   f = function(LogService) {
     return {
       initialize: function(beaconList, cb1, cb2, cb3) {
-        var beacon, beaconRegion, _i, _len;
-        if ((typeof cordova !== "undefined" && cordova !== null) && (cordova.plugins != null) && (cordova.plugins.locationManager != null)) {
-          LogService.info("initializing ibeacons. list: ");
-          LogService.info(beaconList);
-          cordova.plugins.locationManager.setDelegate(createDelegate(cb1, cb2, cb3));
-          for (_i = 0, _len = beaconList.length; _i < _len; _i++) {
-            beacon = beaconList[_i];
-            LogService.info("adding ibeacon " + beacon.identifier);
-            beaconRegion = initializeBeaconRegion(beacon);
-            cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion).fail(console.error).done();
-            cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion).fail(console.error).done();
+        var beacon, beaconRegion, e, _i, _len;
+        try {
+          if ((typeof cordova !== "undefined" && cordova !== null) && (cordova.plugins != null) && (cordova.plugins.locationManager != null)) {
+            LogService.info("initializing ibeacons. list: ");
+            LogService.info(beaconList);
+            cordova.plugins.locationManager.setDelegate(createDelegate(cb1, cb2, cb3));
+            for (_i = 0, _len = beaconList.length; _i < _len; _i++) {
+              beacon = beaconList[_i];
+              LogService.info("adding ibeacon " + beacon.identifier);
+              beaconRegion = initializeBeaconRegion(beacon);
+              cordova.plugins.locationManager.startRangingBeaconsInRegion(beaconRegion).fail(console.error).done();
+              cordova.plugins.locationManager.startMonitoringForRegion(beaconRegion).fail(console.error).done();
+            }
+            if (cordova.plugins.locationManager.requestWhenInUseAuthorization) {
+              cordova.plugins.locationManager.requestWhenInUseAuthorization();
+            }
+          } else {
+            return LogService.info("nope");
           }
-          if (cordova.plugins.locationManager.requestWhenInUseAuthorization) {
-            cordova.plugins.locationManager.requestWhenInUseAuthorization();
-          }
-        } else {
-          return LogService.info("nope");
+        } catch (_error) {
+          e = _error;
+          return LogService.info(e);
         }
       }
     };
